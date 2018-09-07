@@ -1,0 +1,72 @@
+# Sample minimal config file.  Copy this to ~/.offlineimaprc and edit to
+# get started fast.
+
+[general]
+ui = ttyui
+accounts = Gmail_xxx
+maxsyncaccounts = 1
+#pythonfile = ~/.utf7.py
+pythonfile = ~/.offlineimap.py
+
+#Gmail setting
+[Account Gmail_xxx]
+localrepository = Gmail-Local
+remoterepository = Gmail-Remote
+autorefresh = 15
+#autorefresh = 5
+#quick = 10
+proxy = SOCKS5:127.0.0.1:1081
+
+[Repository Gmail-Local]
+type = Maildir
+localfolders = ~/Mail/Gmail/xxx
+nametrans = lambda f: '[Gmail]/' + f if f in ['Drafts', 'Starred', 'Important', 'Spam', 'Trash', 'All Mail', 'Sent Mail'] else f
+
+[Repository Gmail-Remote]
+type = Gmail
+remoteuser = xxx@gmail.com
+#remotepasseval = get_pass("gmail_xxx")
+remotepasseval = get_pw_from_attrs("user","xxx@gmail.com")
+keepalive = 60
+holdconnectionopen = yes
+ssl = true
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = yes
+# Remove GMAIL prefix on Google-specific IMAP folders that are pulled down.
+nametrans = lambda f: f.replace('[Gmail]/', '') if f.startswith('[Gmail]/') else f
+folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail']
+
+
+#nametrans = lambda folder: {'[Gmail]/Drafts':    'Drafts',
+#                            '^\[gmail\]/Sent Mail': 'Sent',
+#                            '[Gmail]/Starred':   'Starred',
+#                            '[Gmail]/Trash':     'Trash',
+#                            }.get(folder,folder)
+#folderfilter = lambda folder: folder in ['INBOX', 'Sent Mail', 'Starred', 'Trash', 'Archive']
+
+#QQ setting
+[Account QQ]
+localrepository = qq-Local
+remoterepository = qq-Remote
+autorefresh = 15
+#autorefresh = 5
+#quick = 10
+
+[Repository qq-Local]
+type = Maildir
+localfolders = ~/Mail/QQ
+
+[Repository qq-Remote]
+type = IMAP
+remotehost = imap.qq.com
+remoteuser = qq@qq.com
+#remotepasseval = get_pass("QQ")
+remotepasseval = get_pw_from_attrs("user","qq@qq.com")
+keepalive = 60
+holdconnectionopen = yes
+ssl = true
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+nametrans = lambda foldername: foldername.decode('imap4-utf-7').encode('utf-8')
+folderfilter = lambda foldername: foldername not in ['Tasklist', 'Trash']
+#folderfilter = lambda foldername: foldername in ['INBOX','Drafts', 'Sent', 'Trash']
+#About the smtp for QQ, the remote smtp store should be closed remotely.

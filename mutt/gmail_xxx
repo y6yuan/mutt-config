@@ -1,0 +1,22 @@
+
+#Folder================================================#
+#set folder = "imaps://xxx@imap.gmail.com"
+set mbox = "+Gmail/xxx/Archive"
+set spoolfile = "+Gmail/xxx/INBOX"
+set postponed = "+Gmail/xxx/Drafts"
+set record = "+Gmail/xxx/Sent Mail"
+
+set realname = "Yuan Ye"
+
+#IMAP==================================================#
+#set imap_user = "reuel.yuan"
+#set imap_pass = $my_pw_gmail
+
+#SMTP==================================================#
+#set smtp_url = "smtp://reuel.yuan@smtp.gmail.com"
+#set smtp_pass = $my_pw_suse
+set sendmail = "/usr/bin/msmtp -a Gmail_xxx"
+set from = "xxx@gmail.com"
+
+set signature="~/.mutt/signature_gmail"
+
