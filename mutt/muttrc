@@ -82,8 +82,8 @@ bind pager k           previous-line
 bind pager j           next-line
 bind pager gg          top
 bind pager G           bottom
-bind index gg          first-entry
-bind index G           last-entry
+bind browser,index gg          first-entry
+bind browser,index G           last-entry
 bind index,pager p     search-opposite
 bind index,pager P     print-message
 bind pager K           previous-undeleted
